@@ -1,0 +1,76 @@
+package ISP;
+
+public interface IPettyGirl {
+	public void goodLooking();
+	public void niceFigure();
+	public void greatTemperament();
+
+}
+
+package ISP;
+
+public  class PettyGirl implements IPettyGirl {
+
+	private String name;
+	public PettyGirl(String _name){
+		this.name=_name;
+	}
+	@Override
+	public void goodLooking() {
+		// TODO Auto-generated method stub
+		System.out.println(this.name+"look good");
+	}
+
+	@Override
+	public void niceFigure() {
+		// TODO Auto-generated method stub
+		System.out.println(this.name+"figure good");
+	}
+
+	@Override
+	public void greatTemperament() {
+		// TODO Auto-generated method stub
+		System.out.println(this.name+"temperament good");
+	}
+
+}
+
+package ISP;
+
+public abstract class AbstractSearcher {
+	protected IPettyGirl pettyGirl;
+	public AbstractSearcher(IPettyGirl _pettyGirl){
+		this.pettyGirl = _pettyGirl;
+	}
+	public abstract void show();
+
+}
+
+package ISP;
+
+public class Searcher extends AbstractSearcher{
+
+	public Searcher(IPettyGirl _pettyGirl){
+		super(_pettyGirl);
+	}
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+		System.out.println("petty girl msg");
+		super.pettyGirl.goodLooking();
+		super.pettyGirl.niceFigure();
+		super.pettyGirl.greatTemperament();
+	}
+
+}
+
+package ISP;
+
+public class Client {
+	public static void main(String[] args) {
+		IPettyGirl yanyan = new PettyGirl("yanyan");
+		AbstractSearcher searcher = new Searcher(yanyan);
+		searcher.show();
+	}
+
+}

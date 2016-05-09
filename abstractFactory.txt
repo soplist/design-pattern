@@ -1,0 +1,188 @@
+package AbstractFactory;
+
+public interface Human {
+   public void getColor();
+   public void talk();
+   public void getSex();
+}
+
+package AbstractFactory;
+
+public class AbstractBlackHuman implements Human {
+
+	@Override
+	public void getColor() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void talk() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getSex() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
+
+package AbstractFactory;
+
+public class AbstractWhiteHuman implements Human{
+	public void getColor(){
+		System.out.println("white color");
+	}
+
+	@Override
+	public void talk() {
+		// TODO Auto-generated method stub
+		System.out.println("white man talk");
+	}
+
+	@Override
+	public void getSex() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
+
+
+package AbstractFactory;
+
+public class AbstractYellowHuman implements Human {
+
+	@Override
+	public void getColor() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void talk() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getSex() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
+
+package AbstractFactory;
+
+public class FemaleBlackHuman extends AbstractBlackHuman {
+	public void getSex(){
+		
+	}
+   
+}
+
+package AbstractFactory;
+
+public class FemaleWhiteHuman extends AbstractYellowHuman {
+	public void getSex(){
+		
+	}
+   
+}
+
+package AbstractFactory;
+
+public class FemaleYellowHuman extends AbstractYellowHuman {
+	public void getSex(){
+		
+	}
+   
+}
+
+package AbstractFactory;
+
+public class MaleYellowHuman extends AbstractYellowHuman{
+	public void getSex(){
+		
+	}
+
+}
+
+package AbstractFactory;
+
+public interface HumanFactory {
+	public Human createYellowHuman();
+	public Human createWhiteHuman();
+	public Human createBlackHuman();
+ 
+}
+
+package AbstractFactory;
+
+public class FemaleFactory implements HumanFactory {
+
+	@Override
+	public Human createYellowHuman() {
+		// TODO Auto-generated method stub
+		return new FemaleYellowHuman();
+	}
+
+	@Override
+	public Human createWhiteHuman() {
+		// TODO Auto-generated method stub
+		return new FemaleWhiteHuman();
+	}
+
+	@Override
+	public Human createBlackHuman() {
+		// TODO Auto-generated method stub
+		return new FemaleBlackHuman();
+	}
+
+}
+
+package AbstractFactory;
+
+public class MaleFactory implements HumanFactory {
+
+	@Override
+	public Human createYellowHuman() {
+		// TODO Auto-generated method stub
+		return new FemaleYellowHuman();
+	}
+
+	@Override
+	public Human createWhiteHuman() {
+		// TODO Auto-generated method stub
+		return new FemaleWhiteHuman();
+	}
+
+	@Override
+	public Human createBlackHuman() {
+		// TODO Auto-generated method stub
+		return new FemaleBlackHuman();
+	}
+
+}
+
+package AbstractFactory;
+
+public class NvWa {
+	public static void main(String[] args) {
+		HumanFactory maleHumanFactory = new MaleFactory();
+		HumanFactory femaleHumanFactory = new FemaleFactory();
+		Human maleYellowHuman = maleHumanFactory.createYellowHuman();
+		Human femaleYellowHuman = femaleHumanFactory.createYellowHuman();
+		femaleYellowHuman.getColor();
+		femaleYellowHuman.talk();
+		femaleYellowHuman.getSex();
+		maleYellowHuman.getColor();
+		maleYellowHuman.talk();
+		maleYellowHuman.getSex();
+	}
+
+}

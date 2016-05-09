@@ -1,0 +1,127 @@
+package extendObserverPattern;
+
+public interface Observable {
+	public void addObserver(Observer observer);
+	public void deleteObserver(Observer observer);
+    public void notifyObservers(String context);
+}
+
+
+package extendObserverPattern;
+
+public interface IHanFeiZi {
+	public void haveBreakfast();
+    public void haveFun();
+}
+
+
+package extendObserverPattern;
+
+import java.util.ArrayList;
+
+public class HanFeiZi implements Observable,IHanFeiZi {
+    private ArrayList<Observer> observerList = new ArrayList<Observer>();
+	@Override
+	public void haveBreakfast() {
+		// TODO Auto-generated method stub
+		this.notifyObservers("HanFeiZi have breakfast.");
+	}
+
+	@Override
+	public void haveFun() {
+		// TODO Auto-generated method stub
+		this.notifyObservers("HanFeiZi have fun.");
+	}
+
+	@Override
+	public void addObserver(Observer observer) {
+		// TODO Auto-generated method stub
+		this.observerList.add(observer);
+	}
+
+	@Override
+	public void deleteObserver(Observer observer) {
+		// TODO Auto-generated method stub
+		this.observerList.remove(observer);
+	}
+
+	@Override
+	public void notifyObservers(String context) {
+		// TODO Auto-generated method stub
+		for(Observer observer:observerList)
+			observer.update(context);
+	}
+
+}
+
+
+package extendObserverPattern;
+
+public interface Observer {
+    public void update(String context);
+}
+
+
+package extendObserverPattern;
+
+public class LiSi implements Observer {
+
+	@Override
+	public void update(String context) {
+		// TODO Auto-generated method stub
+		this.reportToQinShiHuang(context);
+	}
+	private void reportToQinShiHuang(String reportContext){
+		System.out.println(reportContext);
+	}
+
+}
+
+
+package extendObserverPattern;
+
+public class WangSi implements Observer {
+
+	@Override
+	public void update(String context) {
+		// TODO Auto-generated method stub
+		this.cry(context);
+	}
+    public void cry(String str){
+    	System.out.println("beacause of"+str+"cry");
+    }
+}
+
+
+package extendObserverPattern;
+
+public class LiuSi implements Observer {
+
+	@Override
+	public void update(String context) {
+		// TODO Auto-generated method stub
+		this.happy(context);
+	}
+    public void happy(String str){
+    	System.out.println("beacause of"+str+"so i happy");
+    }
+}
+
+
+package extendObserverPattern;
+
+public class Client {
+	public static void main(String[] args) {
+		Observer liSi = new LiSi();
+		Observer wangSi = new WangSi();
+		Observer liuSi = new LiuSi();
+		
+		HanFeiZi hanFeiZi = new HanFeiZi();
+		hanFeiZi.addObserver(liSi);
+		hanFeiZi.addObserver(wangSi);
+		hanFeiZi.addObserver(liuSi);
+		
+		hanFeiZi.haveBreakfast();
+	}
+
+}

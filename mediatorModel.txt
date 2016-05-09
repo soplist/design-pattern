@@ -1,0 +1,153 @@
+package mediatorModel;
+
+public abstract class AbstractMediator {
+	protected Purchase purchase;
+	protected Sale sale;
+	protected Stock stock;
+	public AbstractMediator(){
+		purchase = new Purchase(this);
+		sale = new Sale(this);
+		stock = new Stock(this);
+	}
+    public abstract void execute(String str,Object...object);
+}
+
+
+package mediatorModel;
+
+public class Mediator extends AbstractMediator {
+
+	@Override
+	public void execute(String str, Object... object) {
+		// TODO Auto-generated method stub
+		if(str.equals("purchase.buy")){
+			this.buyComputer((Integer)object[0]);
+		}else if(str.equals("sale.sell")){
+			this.sellComputer((Integer)object[0]);
+		}else if(str.equals("sale.offsell")){
+			this.offSell();
+		}else if(str.equals("stock.clear")){
+			this.clearStock();
+		}
+	}
+	private void buyComputer(int number){
+		int saleStatus = super.sale.getSaleStatus();
+		if(saleStatus>80){
+			System.out.println("buy IBM computer:"+number);
+			super.stock.increase(number);
+		}else{
+			int buyNumber = number/2;
+			System.out.println("buy ibm computer"+buyNumber);
+		}
+		
+	}
+    private void sellComputer(int number){
+    	if(super.stock.getStockNumber()<number){
+    		super.purchase.buyIBMcomputer(number);
+    	}
+    	super.stock.decrease(number);
+    }
+    private void offSell(){
+    	System.out.println("offsela ibm computer"+stock.getStockNumber());
+    }
+    private void clearStock(){
+    	super.sale.offSale();
+    	super.purchase.refuseBuyIBM();
+    }
+}
+
+package mediatorModel;
+
+public class AbstractColleague {
+	protected AbstractMediator mediator;
+	public AbstractColleague(AbstractMediator _mediator){
+		this.mediator = _mediator;
+	}
+
+}
+
+package mediatorModel;
+
+public class Purchase extends AbstractColleague {
+
+	public Purchase(AbstractMediator _mediator) {
+		super(_mediator);
+		// TODO Auto-generated constructor stub
+	}
+    public void buyIBMcomputer(int number){
+    	super.mediator.execute("purchase.buy", number);
+    }
+    public void refuseBuyIBM(){
+    	System.out.println("do not buy IBM computer");
+    }
+}
+
+package mediatorModel;
+
+import java.util.Random;
+
+public class Sale extends AbstractColleague {
+
+	public Sale(AbstractMediator _mediator) {
+		super(_mediator);
+		// TODO Auto-generated constructor stub
+	}
+	public void sellIBMComputer(int number){
+		super.mediator.execute("sale.sell",number);
+		System.out.println("sale IBM computer:"+number);
+	}
+    public int getSaleStatus(){
+    	Random rand = new Random(System.currentTimeMillis());
+    	int saleStatus = rand.nextInt(100);
+    	System.out.println("IBM computer sale statu"+saleStatus);
+    	return saleStatus;
+    }
+    public void offSale(){
+    	super.mediator.execute("sale.offsell");
+    }
+}
+
+package mediatorModel;
+
+public class Stock extends AbstractColleague{
+
+	public Stock(AbstractMediator _mediator) {
+		super(_mediator);
+		// TODO Auto-generated constructor stub
+	}
+	private static int COMPUTER_NUMBER = 100;
+	public void increase(int number){
+		COMPUTER_NUMBER = COMPUTER_NUMBER + number;
+		System.out.println("stock number:"+COMPUTER_NUMBER);
+	}
+	public void decrease(int number){
+		COMPUTER_NUMBER = COMPUTER_NUMBER - number;
+		System.out.println("stock number:"+COMPUTER_NUMBER);
+	}
+	public int getStockNumber(){
+		return COMPUTER_NUMBER;
+	}
+	public void clearStock(){
+		System.out.println("clear stock number:"+COMPUTER_NUMBER);
+		super.mediator.execute("stock.clear");
+	}
+}
+
+package mediatorModel;
+
+public class Client {
+	public static void main(String[] args) {
+		AbstractMediator mediator = new Mediator();
+		System.out.println("buy computer");
+		Purchase purchase = new Purchase(mediator);
+		purchase.buyIBMcomputer(100);
+		System.out.println("sale computer");
+		Sale sale = new Sale(mediator);
+		sale.sellIBMComputer(1);
+		System.out.println("clear stock");
+		Stock stock = new Stock(mediator);
+		stock.clearStock();
+	}
+
+}
+

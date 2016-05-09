@@ -1,0 +1,102 @@
+package prototypyPattern;
+
+public class AdvTemplate {
+	private String advSubject = "subject";
+	public String getAdvSubject() {
+		return advSubject;
+	}
+	public String getAdvContent() {
+		return advContent;
+	}
+	private String advContent = "content";
+
+}
+
+package prototypyPattern;
+
+public class Mail implements Cloneable {
+	private String receiver;
+	private String subject;
+	private String appellation;
+	private String content;
+	private String tail;
+	public Mail(AdvTemplate advTemplate){
+		this.content = advTemplate.getAdvContent();
+		this.subject = advTemplate.getAdvSubject();
+	}
+    public Mail clone(){
+    	Mail mail = null;
+    	try {
+			mail = (Mail)super.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+    	return mail;
+    }
+	public String getReceiver() {
+		return receiver;
+	}
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
+	}
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	public String getAppellation() {
+		return appellation;
+	}
+	public void setAppellation(String appellation) {
+		this.appellation = appellation;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getTail() {
+		return tail;
+	}
+	public void setTail(String tail) {
+		this.tail = tail;
+	}
+	
+}
+
+package prototypyPattern;
+
+import java.io.ObjectInputStream.GetField;
+import java.util.Random;
+
+public class Client {
+	private static int MAX_COUNT = 6;
+	public static void main(String[] args) {
+		int i = 0;
+		Mail mail = new Mail(new AdvTemplate());
+		mail.setTail("bank has this copy right");
+		while(i<MAX_COUNT){
+			Mail cloneMail = mail.clone();
+			cloneMail.setAppellation(getRandString(5)+"@"+getRandString(8)+".com");
+			sendMail(cloneMail);
+			i++;
+		}
+	}
+	public static void sendMail(Mail mail){
+		System.out.println("subject:"+mail.getSubject()+
+				"\treceiver"+mail.getReceiver()+"\t...send succeful");
+	}
+
+	public static String getRandString(int maxLength){
+		String source="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		StringBuffer sb = new StringBuffer();
+		Random rand = new Random();
+		for(int i=0;i<maxLength;i++){
+			sb.append(source.charAt(rand.nextInt(source.length())));
+		}
+		return sb.toString();
+	}
+}

@@ -1,0 +1,181 @@
+package commondModel;
+
+public abstract class Group {
+	public abstract void find();
+	public abstract void add();
+	public abstract void delete();
+	public abstract void change();
+	public abstract void plan();
+
+}
+
+package commondModel;
+
+public class RequirementGroup extends Group {
+
+	@Override
+	public void find() {
+		// TODO Auto-generated method stub
+		System.out.println("find require group");
+	}
+
+	@Override
+	public void add() {
+		// TODO Auto-generated method stub
+		System.out.println("client require add");
+	}
+
+	@Override
+	public void delete() {
+		// TODO Auto-generated method stub
+		System.out.println("client require delete");
+	}
+
+	@Override
+	public void change() {
+		// TODO Auto-generated method stub
+		System.out.println("client require change");
+	}
+
+	@Override
+	public void plan() {
+		// TODO Auto-generated method stub
+		System.out.println("client require change plan");
+	}
+
+}
+
+package commondModel;
+
+public class PageGroup extends Group{
+
+	@Override
+	public void find() {
+		// TODO Auto-generated method stub
+		System.out.println("find page group");
+	}
+
+	@Override
+	public void add() {
+		// TODO Auto-generated method stub
+		System.out.println("client require add");
+	}
+
+	@Override
+	public void delete() {
+		// TODO Auto-generated method stub
+		System.out.println("client require delete");
+	}
+
+	@Override
+	public void change() {
+		// TODO Auto-generated method stub
+		System.out.println("client require change");
+	}
+
+	@Override
+	public void plan() {
+		// TODO Auto-generated method stub
+		System.out.println("client require change plan");
+	}
+
+}
+
+package commondModel;
+
+public class CodeGroup extends Group {
+
+	@Override
+	public void find() {
+		// TODO Auto-generated method stub
+		System.out.println("find code group");
+	}
+
+	@Override
+	public void add() {
+		// TODO Auto-generated method stub
+		System.out.println("client require add");
+	}
+
+	@Override
+	public void delete() {
+		// TODO Auto-generated method stub
+		System.out.println("client require delete");
+	}
+
+	@Override
+	public void change() {
+		// TODO Auto-generated method stub
+		System.out.println("client require change");
+	}
+
+	@Override
+	public void plan() {
+		// TODO Auto-generated method stub
+		System.out.println("client require change plan");
+	}
+
+}
+
+package commondModel;
+
+public abstract class Command {
+	protected RequirementGroup rg = new RequirementGroup();
+	protected PageGroup pg = new PageGroup();
+	protected CodeGroup cg = new CodeGroup();
+    public abstract void execute();
+}
+
+package commondModel;
+
+public class AddRequirementCommand extends Command{
+
+	@Override
+	public void execute() {
+		// TODO Auto-generated method stub
+		super.rg.find();
+		super.rg.add();
+		super.rg.plan();
+	}
+
+}
+
+package commondModel;
+
+public class DeletePageCommand extends Command {
+
+	@Override
+	public void execute() {
+		// TODO Auto-generated method stub
+		super.rg.find();
+		super.rg.delete();
+		super.rg.plan();
+	}
+
+}
+
+package commondModel;
+
+public class Invoker {
+	private Command command;
+	public void setCommand(Command command){
+		this.command = command;
+	}
+	public void action(){
+		this.command.execute();
+	}
+
+}
+
+package commondModel;
+
+public class Client {
+	public static void main(String[] args) {
+		Invoker xiaosan = new Invoker();
+		System.out.println("client require add");
+		Command command = new AddRequirementCommand();
+		xiaosan.setCommand(command);
+		xiaosan.action();
+	}
+
+}

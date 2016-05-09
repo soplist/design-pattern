@@ -1,0 +1,110 @@
+package observerPattern;
+
+public interface IHanFeiZi {
+	public void haveBreakfast();
+    public void haveFun();
+}
+
+
+package observerPattern;
+
+public class HanFeiZi implements IHanFeiZi {
+    private boolean isHavingBreakfast = false;
+    public boolean isHavingBreakfast() {
+		return isHavingBreakfast;
+	}
+
+	public void setHavingBreakfast(boolean isHavingBreakfast) {
+		this.isHavingBreakfast = isHavingBreakfast;
+	}
+
+	public boolean isHavingFun() {
+		return isHavingFun;
+	}
+
+	public void setHavingFun(boolean isHavingFun) {
+		this.isHavingFun = isHavingFun;
+	}
+
+	private boolean isHavingFun = false;
+	@Override
+	public void haveBreakfast() {
+		// TODO Auto-generated method stub
+		System.out.println("HanFeiZi have breakfast.");
+	}
+
+	@Override
+	public void haveFun() {
+		// TODO Auto-generated method stub
+		System.out.println("HanFeiZi have fun.");
+	}
+
+}
+
+
+package observerPattern;
+
+public interface ILiSi {
+    public void update(String context);
+}
+
+
+package observerPattern;
+
+public class LiSi implements ILiSi {
+
+	@Override
+	public void update(String context) {
+		// TODO Auto-generated method stub
+		this.reportToQinShiHuang(context);
+	}
+    private void reportToQinShiHuang(String reportContext){
+    	System.out.println("report to QinShiHuang,HanFeiZi have context:"+reportContext);
+    }
+}
+
+
+package observerPattern;
+
+public class Spy extends Thread{
+	private HanFeiZi hanFeiZi;
+	private LiSi liSi;
+	private String type;
+	public Spy(HanFeiZi _hanFeiZi,LiSi _liSi,String _type){
+		this.hanFeiZi = _hanFeiZi;
+		this.liSi = liSi;
+		this.type = _type;
+	}
+	public void run(){
+		while(true){
+			if(this.type.equals("breakfast")){
+				this.liSi.update("HanFeiZi have breakfast");
+				this.hanFeiZi.setHavingBreakfast(false);
+			}else{
+				if(this.hanFeiZi.isHavingFun()){
+					this.liSi.update("HanFeiZi have fun");
+					this.hanFeiZi.setHavingFun(false);
+				}
+			}
+		}
+	}
+
+}
+
+package observerPattern;
+
+public class Client {
+public static void main(String[] args) throws InterruptedException {
+	LiSi liSi = new LiSi();
+	HanFeiZi hanFeiZi = new HanFeiZi();
+	Spy watchBreakfast = new Spy(hanFeiZi,liSi,"breakfast");
+	watchBreakfast.start();
+	Spy watchFun = new Spy(hanFeiZi,liSi,"fun");
+	watchFun.start();
+	Thread.sleep(1000);
+	hanFeiZi.haveBreakfast();
+	Thread.sleep(1000);
+	hanFeiZi.haveFun();
+}
+}
+

@@ -1,0 +1,104 @@
+package IteratorPattern;
+
+public interface IProject {
+	public void add(String name,int num,int cost);
+	public String getProjectInfo();
+	public IProjectIterator iterator();
+
+}
+
+package IteratorPattern;
+
+import java.util.ArrayList;
+
+public class Project implements IProject {
+    private ArrayList<IProject> projectList = new ArrayList<IProject>();
+	private String name="";
+	private int num = 0;
+	private int cost = 0;
+	public Project(){
+		
+	}
+	private Project(String name,int num,int cost){
+		this.name = name;
+		this.num = num;
+		this.cost = cost;
+	}
+    @Override
+	public void add(String name, int num, int cost) {
+		// TODO Auto-generated method stub
+		this.projectList.add(new Project(name,num,cost));
+	}
+
+	@Override
+	public String getProjectInfo() {
+		// TODO Auto-generated method stub
+		String info = "";
+		info = info+"project name:"+this.name;
+		info = info+"\tproject staff num:"+this.num;
+		info = info+"\tproject cost:"+this.cost;
+		return info;
+	}
+
+	@Override
+	public IProjectIterator iterator() {
+		// TODO Auto-generated method stub
+		return new ProjectIterator(this.projectList);
+	}
+
+}
+
+
+package IteratorPattern;
+
+public interface IProjectIterator {
+	public boolean hasNext();
+	public IProject next();
+	public void remove();
+}
+
+
+package IteratorPattern;
+
+import java.util.ArrayList;
+
+public class ProjectIterator implements IProjectIterator {
+	private ArrayList<IProject> projectList = new ArrayList<IProject>();
+	private int currentItem = 0;
+	public ProjectIterator(ArrayList<IProject> projectList){
+		this.projectList = projectList;
+	}
+    public boolean hasNext(){
+    	boolean b = true;
+    	if(this.currentItem>=projectList.size()||this.projectList.get(this.currentItem)==null){
+    		b =false;
+    	}
+    	return b;
+    }
+    public IProject next(){
+    	return (IProject)this.projectList.get(this.currentItem++);
+    }
+    public void remove(){
+    	
+    }
+}
+
+package IteratorPattern;
+
+public class Boss {
+	public static void main(String[] args) {
+		IProject project = new Project();
+		project.add("name1", 10, 1000);
+		project.add("name2", 100, 100000);
+		project.add("name3", 1000, 10000000);
+		for(int i=4;i<104;i++){
+			project.add("name"+i,i*5, i*10000);
+		}
+		IProjectIterator projectIterator = project.iterator();
+		while(projectIterator.hasNext()){
+			IProject p = (IProject)projectIterator.next();
+			System.out.println(p.getProjectInfo());
+		}
+	}
+    
+}

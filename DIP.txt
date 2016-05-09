@@ -1,0 +1,59 @@
+package DIP;
+
+public interface IDriver{
+	public void drive(ICar car);
+  
+}
+
+package DIP;
+
+public class Driver implements IDriver {
+
+	@Override
+	public void drive(ICar car) {
+		// TODO Auto-generated method stub
+		car.run();
+	}
+
+}
+
+package DIP;
+
+public interface ICar {
+	public void run();
+}
+
+package DIP;
+
+public class Benz implements ICar {
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		System.out.println("benz has been run");
+	}
+
+}
+
+package DIP;
+
+public class BMW implements ICar {
+	public void run(){
+		System.out.println("BMW has been run");
+	}
+
+}
+
+
+package DIP;
+
+public class Client {
+	public static void main(String[] args) {
+		IDriver zhangSan = new Driver();
+		ICar benz = new Benz();
+		zhangSan.drive(benz);
+	}
+
+}
+
+

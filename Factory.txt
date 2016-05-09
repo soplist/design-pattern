@@ -1,0 +1,101 @@
+package Factory;
+
+public interface Human {
+    public void getColor();
+    public void talk();
+}
+package Factory;
+
+public class BlackHuman implements Human{
+
+	@Override
+	public void getColor() {
+		// TODO Auto-generated method stub
+		System.out.println("black man's color is black");
+	}
+
+	@Override
+	public void talk() {
+		// TODO Auto-generated method stub
+		System.out.println("black man talk");
+	}
+}
+package Factory;
+
+public class WhiteHuman implements Human {
+
+	@Override
+	public void getColor() {
+		// TODO Auto-generated method stub
+		System.out.println("white man's color is black");
+	}
+
+	@Override
+	public void talk() {
+		// TODO Auto-generated method stub
+		System.out.println("white man talk");
+	}
+}
+
+package Factory;
+
+public class YellowHuman implements Human{
+
+	@Override
+	public void getColor() {
+		// TODO Auto-generated method stub
+		System.out.println("yellow man's color is black");
+	}
+
+	@Override
+	public void talk() {
+		// TODO Auto-generated method stub
+		System.out.println("yellow man talk");
+	}
+	
+}
+
+package Factory;
+
+public abstract class AbstractHumanFactory {
+    public abstract <T extends Human> T createHuman(Class<T> c);
+}
+
+package Factory;
+
+public class HumanFactory extends AbstractHumanFactory{
+
+	@Override
+	public <T extends Human> T createHuman(Class<T> c) {
+		// TODO Auto-generated method stub
+		Human human = null;
+		try{
+			human = (Human)Class.forName(c.getName()).newInstance();
+		}catch(Exception e){
+			System.out.println("error");
+		}
+		return (T)human;
+	}
+	
+
+}
+
+package Factory;
+
+public class NvWa {
+  public static void main(String[] args) {
+	AbstractHumanFactory YinYangLu = new HumanFactory();
+	System.out.println("-white man-");
+	Human whiteHuman = YinYangLu.createHuman(WhiteHuman.class);
+	whiteHuman.getColor();
+	whiteHuman.talk();
+	System.out.println("-black man-");
+	Human blackHuman = YinYangLu.createHuman(BlackHuman.class);
+	blackHuman.getColor();
+	blackHuman.talk();
+	System.out.println("-yellow man-");
+	Human yellowHuman = YinYangLu.createHuman(YellowHuman.class);
+	yellowHuman.getColor();
+	yellowHuman.talk();
+  }
+}

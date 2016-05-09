@@ -1,0 +1,57 @@
+package decoratorPattern;
+
+public abstract class SchoolReport {
+	public abstract void report();
+	public abstract void sign(String name);
+
+}
+
+package decoratorPattern;
+
+public class FouthGradeSchoolReport extends SchoolReport {
+
+	@Override
+	public void report() {
+		// TODO Auto-generated method stub
+		System.out.println("the parents of XX");
+		System.out.println("chinese 62 math 65 sport 98 nature 63");
+		System.out.println("sign");
+		
+	}
+
+	public void sign(String name) {
+		// TODO Auto-generated method stub
+		System.out.println("sign"+name);
+	}
+
+
+}
+
+package decoratorPattern;
+
+public class SugarFouthGradeSchoolReport extends FouthGradeSchoolReport {
+	private void reportHighScore(){
+		System.out.println("the highest score chinese 75,math 78,nature 60");
+		
+	}
+    private void reportSort(){
+    	System.out.println("38 min");
+    }
+    
+    public void report(){
+    	this.reportHighScore();
+    	super.report();
+    	this.reportSort();
+    }
+}
+
+package decoratorPattern;
+
+public class Father {
+	public static void main(String[] args) {
+		SchoolReport sr = new SugarFouthGradeSchoolReport();
+		sr.report();
+		sr.sign("laosan");
+	}
+
+}

@@ -1,0 +1,107 @@
+package author;
+
+import java.util.ArrayList;
+
+public abstract class CarModel {
+	private ArrayList<String> sequence = new ArrayList<String>();
+	protected abstract void start();
+	protected abstract void stop();
+	protected abstract void alarm();
+	protected abstract void engineBoom();
+	final public void run(){
+		for(int i=0;i<this.sequence.size();i++){
+			String actionName = this.sequence.get(i);
+			if(actionName.equals("start")){
+				this.start();
+			}else if(actionName.equalsIgnoreCase("stop")){
+				this.stop();
+			}else if(actionName.equalsIgnoreCase("alarm")){
+				this.alarm();
+			}else if(actionName.equalsIgnoreCase("engine boom")){
+				this.engineBoom();
+			}
+			
+		}
+	}
+	final public void setSequence(ArrayList<String> sequence){
+		this.sequence = sequence;
+	
+	}
+}
+
+package author;
+
+public class BenzModel extends CarModel {
+
+	@Override
+	protected void start() {
+		// TODO Auto-generated method stub
+		System.out.println("benz start");
+	}
+
+	@Override
+	protected void stop() {
+		// TODO Auto-generated method stub
+		System.out.println("benz stop");
+	}
+
+	@Override
+	protected void alarm() {
+		// TODO Auto-generated method stub
+		System.out.println("benz alarm");
+	}
+
+	@Override
+	protected void engineBoom() {
+		// TODO Auto-generated method stub
+		System.out.println("benz engine boom");
+	}
+
+}
+
+package author;
+
+public class BMWModel extends CarModel {
+
+	@Override
+	protected void start() {
+		// TODO Auto-generated method stub
+		System.out.println("BMW start");
+	}
+
+	@Override
+	protected void stop() {
+		// TODO Auto-generated method stub
+		System.out.println("BMW stop");
+	}
+
+	@Override
+	protected void alarm() {
+		// TODO Auto-generated method stub
+		System.out.println("BMW alarm");
+	}
+
+	@Override
+	protected void engineBoom() {
+		// TODO Auto-generated method stub
+		System.out.println("BMW engine boom");
+	}
+
+}
+
+package author;
+
+import java.util.ArrayList;
+
+public class Client {
+  public static void main(String[] args) {
+	BenzModel benz = new BenzModel();
+	ArrayList<String> sequence = new ArrayList<String>();
+	sequence.add("engine boom");
+	sequence.add("start");
+	sequence.add("stop");
+	benz.setSequence(sequence);
+	benz.run();
+}
+}
+

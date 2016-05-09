@@ -1,0 +1,88 @@
+package Model;
+
+public abstract class HummerModel {
+	public abstract void start();
+	public abstract void stop();
+	public abstract void alarm();
+	public abstract void engineBoom();
+	public void run(){
+		this.start();
+		this.engineBoom();
+		this.alarm();
+		this.stop();
+	}
+
+}
+
+package Model;
+
+public class HummerH1Model extends HummerModel {
+
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+		System.out.println("H1 start");
+	}
+
+	@Override
+	public void stop() {
+		// TODO Auto-generated method stub
+		System.out.println("H1 stop");
+	}
+
+	@Override
+	public void alarm() {
+		// TODO Auto-generated method stub
+		System.out.println("H1 alarm");
+	}
+
+	@Override
+	public void engineBoom() {
+		// TODO Auto-generated method stub
+		System.out.println("H1 engineboom");
+	}
+
+}
+
+package Model;
+
+public class HummerH2Model extends HummerModel {
+
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+		System.out.println("H2 start");
+	}
+
+	@Override
+	public void stop() {
+		// TODO Auto-generated method stub
+		System.out.println("H2 stop");
+	}
+
+	@Override
+	public void alarm() {
+		// TODO Auto-generated method stub
+		System.out.println("H2 alarm");
+	}
+
+	@Override
+	public void engineBoom() {
+		// TODO Auto-generated method stub
+		System.out.println("H2 engineboom");
+	}
+}
+
+package Model;
+
+public class Client {
+	public static void main(String[] args) {
+		HummerModel h1 = new HummerH1Model();
+		h1.run();
+	}
+
+}
+
+
+
+

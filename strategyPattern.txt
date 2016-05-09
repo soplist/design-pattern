@@ -1,0 +1,70 @@
+package strategyPattern;
+
+public interface IStrategy {
+	public void operate();
+
+}
+
+package strategyPattern;
+
+public class BackDoor implements IStrategy {
+
+	@Override
+	public void operate() {
+		// TODO Auto-generated method stub
+		System.out.println("1");
+	}
+
+}
+
+package strategyPattern;
+
+public class GivenGreenLight implements IStrategy{
+
+	@Override
+	public void operate() {
+		// TODO Auto-generated method stub
+		System.out.println("2");
+	}
+
+}
+
+
+package strategyPattern;
+
+public class BlockEnemy implements IStrategy {
+
+	@Override
+	public void operate() {
+		// TODO Auto-generated method stub
+		System.out.println("3");
+	}
+
+}
+
+package strategyPattern;
+
+public class Context {
+	private IStrategy straegy;
+	public Context(IStrategy strategy){
+		this.straegy = strategy;
+	}
+    public void operate(){
+    	this.straegy.operate();
+    }
+}
+
+
+package strategyPattern;
+
+public class ZhaoYun {
+   public static void main(String[] args) {
+	Context context;
+	context = new Context(new BackDoor());
+	context.operate();
+	context = new Context(new GivenGreenLight());
+	context.operate();
+	context = new Context(new BlockEnemy());
+	context.operate();
+}
+}

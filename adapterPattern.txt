@@ -1,0 +1,177 @@
+package adapterPattern;
+
+public interface IUserInfo {
+	public String getUserName();
+	public String getHomeAddress();
+	public String getMobileNumber();
+	public String getOfficeTelNumber();
+	public String getJobPosition();
+	public String getHomeTelNumber();
+
+}
+
+package adapterPattern;
+
+public class UserInfo implements IUserInfo {
+
+	@Override
+	public String getUserName() {
+		// TODO Auto-generated method stub
+		System.out.println("user name");
+		return null;
+	}
+
+	@Override
+	public String getHomeAddress() {
+		// TODO Auto-generated method stub
+		System.out.println("home address");
+		return null;
+	}
+
+	@Override
+	public String getMobileNumber() {
+		// TODO Auto-generated method stub
+		System.out.println("mobile number");
+		return null;
+	}
+
+	@Override
+	public String getOfficeTelNumber() {
+		// TODO Auto-generated method stub
+		System.out.println("office telephone number");
+		return null;
+	}
+
+	@Override
+	public String getJobPosition() {
+		// TODO Auto-generated method stub
+		System.out.println("job position");
+		return null;
+	}
+
+	@Override
+	public String getHomeTelNumber() {
+		// TODO Auto-generated method stub
+		System.out.println("home telephone number");
+		return null;
+	}
+
+}
+
+
+package adapterPattern;
+
+import java.util.Map;
+
+public interface IOuterUser {
+	public Map getUserBaseInfo();
+	public Map getUserOfficeInfo();
+	public Map getUserHomeInfo();
+
+}
+
+package adapterPattern;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class OuterUser implements IOuterUser {
+
+	@Override
+	public Map getUserBaseInfo() {
+		// TODO Auto-generated method stub
+		HashMap baseInfoMap = new HashMap();
+		baseInfoMap.put("userName","his name is hunshimowang");
+		baseInfoMap.put("mobileNumber", "1234");
+		return baseInfoMap;
+	}
+
+	@Override
+	public Map getUserOfficeInfo() {
+		// TODO Auto-generated method stub
+		HashMap officeInfoMap = new HashMap();
+		officeInfoMap.put("jobPosition","boss");
+		officeInfoMap.put("officeTelNumber", "3456");
+		return officeInfoMap;
+	}
+
+	@Override
+	public Map getUserHomeInfo() {
+		// TODO Auto-generated method stub
+		HashMap homeInfoMap = new HashMap();
+		homeInfoMap.put("homeTelNumbet","2345");
+		homeInfoMap.put("homeAddress", "home address");
+		return homeInfoMap;
+	}
+
+}
+
+
+package adapterPattern;
+
+import java.util.Map;
+
+public  class OuterUserInfo extends OuterUser implements IUserInfo {
+    private Map baseInfo = super.getUserBaseInfo();
+    private Map homeInfo = super.getUserHomeInfo();
+    private Map officeInfo = super.getUserOfficeInfo();
+	@Override
+	public String getUserName() {
+		// TODO Auto-generated method stub
+		String userName = (String) this.baseInfo.get("userName");
+		System.out.println(userName);
+		return userName;
+	}
+
+	@Override
+	public String getHomeAddress() {
+		// TODO Auto-generated method stub
+		String homeAddress = (String)this.homeInfo.get("homeAddress");
+		System.out.println(homeAddress);
+		return homeAddress;
+	}
+
+	@Override
+	public String getMobileNumber() {
+		// TODO Auto-generated method stub
+		String mobileNumber = (String) this.baseInfo.get("mobileNumber");
+		System.out.println(mobileNumber);
+		return mobileNumber;
+	}
+
+	@Override
+	public String getOfficeTelNumber() {
+		// TODO Auto-generated method stub
+		String officeTelNumber = (String) this.officeInfo.get("officeTelNumber");
+		System.out.println(officeTelNumber);
+		return officeTelNumber;
+	}
+
+	@Override
+	public String getJobPosition() {
+		// TODO Auto-generated method stub
+		String jobPosition = (String) this.officeInfo.get("jobPosition");
+		System.out.println(jobPosition);
+		return jobPosition;
+	}
+
+	@Override
+	public String getHomeTelNumber() {
+		// TODO Auto-generated method stub
+		String homeTelNumber = (String) this.homeInfo.get("homeTelNumber");
+		System.out.println(homeTelNumber);
+		return homeTelNumber;
+	}
+
+}
+
+
+package adapterPattern;
+
+public class Client {
+public static void main(String[] args) {
+	IUserInfo youngGirl = new OuterUserInfo();
+	for(int i=0;i<101;i++)
+		youngGirl.getMobileNumber();
+}
+}

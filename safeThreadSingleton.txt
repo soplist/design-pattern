@@ -1,0 +1,14 @@
+public class SafeThreadSingleton {
+private static SafeThreadSingleton singleton = null;
+    
+    private SafeThreadSingleton(){
+    	
+    }
+    
+    public synchronized static SafeThreadSingleton getSingleton(){
+    	if(singleton == null){
+    		singleton = new SafeThreadSingleton();
+    	}
+    	return singleton;
+    }
+}
